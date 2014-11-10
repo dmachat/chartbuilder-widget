@@ -19,26 +19,33 @@ require.config({
     paths: {
       // Libraries
       'underscore': '../../vendor/underscore.amd',
-      'angular': '//ajax.googleapis.com/ajax/libs/angularjs/1.3.0/angular.min',
+      'angular': '//ajax.googleapis.com/ajax/libs/angularjs/1.3.0/angular',
       'd3': '//cdnjs.cloudflare.com/ajax/libs/d3/3.4.13/d3.min',
       'nvd3': '//cdnjs.cloudflare.com/ajax/libs/nvd3/1.1.15-beta/nv.d3.min',
       'topojson': '//cdnjs.cloudflare.com/ajax/libs/topojson/1.1.0/topojson.min',
-      'datamaps': '//dmachat.github.io/angularjs-d3-chartbuilder/bower_components/datamaps/dist/datamaps.all',
+      'datamaps': '../../vendor/modules/datamaps.all',
 
       // Angular modules
-      'angular-datamaps': '//dmachat.github.io/angularjs-d3-chartbuilder/scripts/angular_modules/datamaps/angular-datamaps',
-      'angular-nvd3': '//dmachat.github.io/angularjs-d3-chartbuilder/scripts/angular_modules/nvd3-modules/angular-nvd3'
+      'angular-datamaps': '../../vendor/modules/angular-datamaps',
+      'angular-nvd3': '../../vendor/modules/angular-nvd3',
+      'chartbuilder-options': '../../vendor/modules/options-constants',
     },
 
     shim: {
-      // Shim nvd3
-      'nvd3': ['d3'],
-      'chartbuilder.nvd3': ['angular', 'nvd3'],
-
-      // Shim Datamaps
-      'topojson': ['d3'],
-      'datamaps': ['angular', 'd3', 'topojson'],
-      'angular-datamaps': ['d3', 'topojson', 'datamaps']
+      'angular': {
+        exports: 'angular'
+      },
+      'd3': {
+        exports: 'd3'
+      },
+      'nvd3': {
+        exports: 'nv',
+        deps: ['d3']
+      },
+      'datamaps': ['d3', 'topojson'],
+      'angular-datamaps': ['angular', 'datamaps'],
+      'chartbuilder-options': ['angular', 'd3'],
+      'angular-nvd3': ['chartbuilder-options']
     },
 
     // The r.js compiler will pick this up and enclose everything under this namespace.
@@ -57,7 +64,7 @@ require.config({
       // think of enclosure and configuration and such.
 
       var App = function(params) {
-        return Widget.apply(this, arguments);
+        return Widget.init(params);
       };
 
       App.prototype = Widget.prototype;
@@ -67,4 +74,3 @@ require.config({
   );
 
 }(this));
-

@@ -1,32 +1,62 @@
-define([
-  'angular',
-  'd3',
-  'topojson',
-  'datamaps',
-  'list_globals',
-  'nvd3',
-  'angular-datamaps',
-  'angular-nvd3'], function(angular, d3, topojson, Datamap, listGlobals) {
+define(function(require) {
+  'use strict';
 
-  var Widget = function(params) {
-    console.log('hello');
+  var angular = require('angular'),
+      angularDatamaps = require('angular-datamaps'),
+      angularNvd3 = require('angular-nvd3');
 
-    /*
-    var $el = $(params.el);
+  var app = angular.module('chartbuilderCharts', ['datamaps', 'chartbuilder.nvd3']);
 
-    var globals = listGlobals();
-    var fragment = _.reduce(globals, function(html, global) {
-      return html + '<li><code>' + global + '</code></li>\n';
-    }, '');
-
-    $el
-      .append('grunt, RequireJS, underscore and jQuery made me be')
-      .append("<p>I'm guilty of these globals:</p>")
-      .append($('<ul/>').html(fragment));
-    */
-
+  app.init = function(params) {
+    angular.bootstrap(params.el, ['chartbuilderCharts']);
   };
 
-  return Widget;
+  app.value('pageCharts', {})
+
+  app.directive('chartbuilderChart', ['$compile', function($compile) {
+      return {
+        restrict: 'EA',
+        scope: {
+          data: '=?'
+        },
+
+        link: function(scope, element) {
+          scope.dataStore = scope.data;
+
+          // Define child scope and template
+          var childScope = scope.$new();
+
+          // Define build template function
+          scope.build = function(_scope) {
+            var template = [
+              '<h2>{{ data.meta.title }}</h2>',
+              '<h4>{{ data.meta.subtitle }}</h4>',
+              scope.data.template,
+              '<p>{{ data.meta.caption }}</p>',
+              '<h6 ng-if="data.meta.attribution">{{ data.meta.attribution }}</h6>'
+            ].join('');
+            element.html('').append($compile(template)(_scope));
+          };
+
+          // Refresh directive when data changes
+          scope.$watch('data', function(data) {
+            if (angular.isUndefined(data) || angular.isUndefined(data.template)) {
+              return false;
+            }
+            childScope.$destroy();
+            childScope = scope.$new();
+            scope.build(childScope);
+          }, true);
+
+          // Build template view
+          //scope.build(childScope);
+        }
+      };
+    }])
+    .controller('chartbuilderUICtrl', ['$scope', 'pageCharts', function($scope, pageCharts) {
+      $scope.pageCharts = pageCharts;
+    }]);
+
+  return app;
 
 });
