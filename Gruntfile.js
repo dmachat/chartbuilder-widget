@@ -15,9 +15,9 @@ module.exports = function(grunt) {
     requirejs: {
       compile: {
         options: {
-          mainConfigFile: "app/js/app.js",
-          out: "dist/release/js/app.js",
-          name: "app"
+          mainConfigFile: 'app/js/app.js',
+          out: 'dist/release/js/app.js',
+          name: 'app'
         }
       }
     },
@@ -51,31 +51,11 @@ module.exports = function(grunt) {
       }
     },
 
-    copy: {
-      main: {
-        files: [
-          {
-            src: [ 'app/img/*' ],
-            dest: 'dist/release/img/',
-            flatten: true,
-            expand: true
-          },
-          {
-            src: [ 'app/css/*' ],
-            dest: 'dist/release/css/',
-            flatten: true,
-            expand: true
-          }
-        ]
-      }
-    }
-
   });
 
   grunt.registerTask('build', [
     'clean',
-    'requirejs',
-    'copy'
+    'requirejs'
   ]);
   grunt.registerTask('server', [
     'subgrunt:loader',

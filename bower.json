@@ -1,0 +1,10 @@
+{
+  "name": "chartbuilder-widget",
+  "version": "0.0.1",
+  "dependencies": {
+    "angular": "~1.3.0",
+    "d3": "~3.4.13",
+    "nvd3": "~1.1.15-beta",
+    "datamaps": "~0.3.2"
+  }
+}

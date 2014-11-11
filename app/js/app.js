@@ -19,10 +19,10 @@ require.config({
     paths: {
       // Libraries
       'underscore': '../../vendor/underscore.amd',
-      'angular': '//ajax.googleapis.com/ajax/libs/angularjs/1.3.0/angular',
-      'd3': '//cdnjs.cloudflare.com/ajax/libs/d3/3.4.13/d3.min',
-      'nvd3': '//cdnjs.cloudflare.com/ajax/libs/nvd3/1.1.15-beta/nv.d3.min',
-      'topojson': '//cdnjs.cloudflare.com/ajax/libs/topojson/1.1.0/topojson.min',
+      'angular': '../bower_components/angular/angular.min',
+      'd3': '../bower_components/d3/d3.min',
+      'nvd3': '../bower_components/nvd3/nv.d3.min',
+      'topojson': '../bower_components/topojson/topojson',
       'datamaps': '../../vendor/modules/datamaps.all',
 
       // Angular modules
