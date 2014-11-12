@@ -37,6 +37,11 @@ define(function(require) {
         link: function(scope, element) {
           scope.dataStore = scope.data;
 
+          // Decode meta fields
+          angular.forEach(scope.dataStore.meta, function(value, key) {
+            scope.dataStore.meta[key] = decodeURIComponent(value);
+          });
+
           // Define child scope and template
           var childScope = scope.$new();
 

@@ -19,10 +19,10 @@ require.config({
     paths: {
       // Libraries
       'underscore': '../../vendor/underscore.amd',
-      'angular': '../bower_components/angular/angular.min',
-      'd3': '../bower_components/d3/d3.min',
-      'nvd3': '../bower_components/nvd3/nv.d3.min',
-      'topojson': '../bower_components/topojson/topojson',
+      'angular': '../../bower_components/angular/angular.min',
+      'd3': '../../bower_components/d3/d3.min',
+      'nvd3': '../../bower_components/nvd3/nv.d3.min',
+      'topojson': '../../bower_components/topojson/topojson',
       'datamaps': '../../vendor/modules/datamaps.all',
 
       // Angular modules
