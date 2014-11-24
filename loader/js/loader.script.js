@@ -30,7 +30,7 @@ define(['utils', 'namespace' ], function(utils, namespace) {
 
         // Skip script inclusion that have no params specified, and script
         // elements already found.
-        if (nParams > 0 && foundEls.indexOf(el) < 0) {
+        if (foundEls.indexOf(el) < 0) {
           foundEls.push(el);
 
           utils.extend(paramsEmbed, {

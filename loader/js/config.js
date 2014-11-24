@@ -8,7 +8,7 @@ var config, exports, namespace;
 
 config = {
   namespace: 'ChartbuilderGlobal',
-  baseUrl: '//localhost:9000/dist/release'
+  baseUrl: '//dmachat.github.io/angularjs-d3-chartbuilder/bower_components/chartbuilder-widget/dist/release'
 };
 
 if (typeof window !== 'undefined') {
