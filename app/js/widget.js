@@ -10,6 +10,11 @@ define(function(require) {
   var app = angular.module('chartbuilderCharts', ['datamaps', 'chartbuilder.nvd3']);
 
   app.init = function(params) {
+    // Make sure element attributes exist
+    if (!(params.element.attributes['data-chart'] || {}).value ||
+        !(params.element.attributes['data-template'] || {}).value) {
+      return;
+    }
 
     // Assign data attributes to variables
     id = params['element id'];
