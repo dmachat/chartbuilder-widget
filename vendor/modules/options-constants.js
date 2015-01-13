@@ -1,6 +1,6 @@
-define(['angular', 'd3'], function(angular, d3) {
+'use strict';
 
-  'use strict';
+define(['angular', 'd3'], function(angular, d3) {
 
   var xKeyValue = {
     'label': 'Key',
@@ -107,8 +107,11 @@ define(['angular', 'd3'], function(angular, d3) {
     }
   }
 
-  var app = angular.module('chartbuilderOptions', []).
-    value('chartbuilderOptionHelp', {
+  angular
+
+    .module('chartbuilderOptions', [])
+
+    .value('chartbuilderOptionHelp', {
       'forceX': {
         'help': 'Set the min (0) and the max (1) values to scale this axis to',
         'label': 'x-Axis Endpoints'
@@ -150,8 +153,9 @@ define(['angular', 'd3'], function(angular, d3) {
         'help': 'Adjust the whitespace around this element',
         'label': 'Margin'
       }
-    }).
-    value('chartbuilderOptionValues', {
+    })
+
+    .value('chartbuilderOptionValues', {
 
       //
       // NVD3 options
@@ -243,12 +247,24 @@ define(['angular', 'd3'], function(angular, d3) {
           'option': function(d) {
             return new Date(Date.parse(d.x));
           }
+        },
+        'function:datefromarray': {
+          'label': 'Date (Stacked Area)',
+          'option': function(d) {
+            return new Date(Date.parse(d[0]));
+          }
         }
       },
       'y': {
         'function:key/y': yValue,
         'function:yPercentData': yPercent,
         'function:label/value': yLabelValue,
+        'function:valuefromarray': {
+          'label': 'Value (Stacked Area)',
+          'option': function(d) {
+            return d[1];
+          }
+        }
       },
       'tooltipContent': {
         'function:key/value': {
@@ -267,6 +283,15 @@ define(['angular', 'd3'], function(angular, d3) {
           'label': 'key only',
           'option': function(key) {
             return '<h3>' + key + '</h3>';
+          }
+        }
+      },
+      'tooltip': {
+        'function:multiBarChart': {
+          'label': 'multiBarChart',
+          'option': function(key, x, y) {
+            return '<h3>' + key + '</h3>' +
+                   '<p>' +  y + ' ' + x + '</p>';
           }
         }
       },
