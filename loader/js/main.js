@@ -59,10 +59,21 @@ require([ 'utils', 'loader.div', 'loader.script' ], function(utils, loadDivEmbed
     // Setup RequireJS and load the widget
     namespace.require.config({ baseUrl: parameters.base_url + '/js' });
 
-    namespace.require([ 'app' ], function(App) {
-      var app = new App(parameters);
-    });
+    var isMobile = utils.isMobile.any();
 
+    if (isMobile && parameters.element.dataset.image) {
+      var img = document.createElement('img');
+      img.src = parameters.element.dataset.image;
+      parameters.el.appendChild(img);
+    } else if (!isMobile) {
+      namespace.require([ 'app' ], function(App) {
+        var app = new App(parameters);
+      });
+    } else {
+      var text = document.createElement('h4');
+      text.textContent = 'Charts are not supported on your device.';
+      parameters.el.appendChild(text);
+    }
   };
 
   // Find all embeds

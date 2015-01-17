@@ -17,7 +17,7 @@ define(function(require) {
     }
 
     // Assign data attributes to variables
-    id = params['element id'];
+    id = params['element_id'];
     data = angular.fromJson(params.element.attributes['data-chart'].value);
     data.template = params.element.attributes['data-template'].value;
 
