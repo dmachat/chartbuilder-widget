@@ -38,6 +38,26 @@ define(['angular', 'd3', 'nvd3', 'chartbuilder-options'], function(angular, d3, 
               scope.chart.update();
             },
 
+            // Force labels to wrap
+            wrapLabels: function() {
+              var svgEl = d3.select(element[0]).select('svg');
+
+              if (scope.options.chart.wrapLabels) {
+                svgEl.selectAll('.nv-axis .tick text').each(function(d) {
+                  var el = d3.select(this);
+                  var words = d.toString().split(' ');
+                  el.text('');
+
+                  for (var i = 0; i < words.length; i++) {
+                    var tspan = el.append('tspan').text(words[i]);
+                    if (i > 0) {
+                      tspan.attr('x', 0).attr('dy', '15');
+                    }
+                  }
+                });
+              }
+            },
+
             // Update chart with new options
             updateWithOptions: function(options) {
 
@@ -153,7 +173,7 @@ define(['angular', 'd3', 'nvd3', 'chartbuilder-options'], function(angular, d3, 
                 // Update the chart when window resizes
                 nv.utils.windowResize(function() { scope.chart.update(); });
                 return scope.chart;
-              }, options.chart['callback']);
+              }, scope.api.wrapLabels);
             },
 
             // Update chart with new data
@@ -178,21 +198,6 @@ define(['angular', 'd3', 'nvd3', 'chartbuilder-options'], function(angular, d3, 
                 svgEl[0][0].style.width = scope.options.chart.width + 'px';
                 if (scope.options.chart.type === 'multiChart') {
                   scope.chart.update(); // multiChart is not automatically updated
-                }
-
-                if (scope.options.chart.wrapLabels) {
-                  svgEl.selectAll('.nv-axis .tick text').each(function(d) {
-                    var el = d3.select(this);
-                    var words = d.toString().split(' ');
-                    el.text('');
-
-                    for (var i = 0; i < words.length; i++) {
-                      var tspan = el.append('tspan').text(words[i]);
-                      if (i > 0) {
-                        tspan.attr('x', 0).attr('dy', '15');
-                      }
-                    }
-                  });
                 }
               }
             },
