@@ -62,9 +62,25 @@ require([ 'utils', 'loader.div', 'loader.script' ], function(utils, loadDivEmbed
     var isMobile = utils.isMobile.any();
 
     if (isMobile && parameters.element.dataset.image) {
+      var chart = JSON.parse(parameters.element.dataset.chart);
+      var chartbuilderWrapper = document.createElement('div');
+      chartbuilderWrapper.className = 'chartbuilder-chart';
       var img = document.createElement('img');
       img.src = parameters.element.dataset.image;
-      parameters.el.appendChild(img);
+      var title = document.createElement('h2');
+      title.innerHTML = chart.meta.title;
+      var subtitle = document.createElement('h4');
+      subtitle.innerHTML = chart.meta.subtitle;
+      var caption = document.createElement('p');
+      caption.innerHTML = chart.meta.caption;
+      var attribution = document.createElement('h6');
+      attribution.innerHTML = chart.meta.attribution;
+      chartbuilderWrapper.appendChild(title);
+      chartbuilderWrapper.appendChild(subtitle);
+      chartbuilderWrapper.appendChild(img);
+      chartbuilderWrapper.appendChild(caption);
+      chartbuilderWrapper.appendChild(attribution);
+      parameters.el.appendChild(chartbuilderWrapper);
     } else if (!isMobile) {
       namespace.require([ 'app' ], function(App) {
         var app = new App(parameters);
